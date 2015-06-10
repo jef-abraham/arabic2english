@@ -1,4 +1,4 @@
-require 'awesome_print'
+# require 'awesome_print'
 
 ARR = {'crore'     => 1_00_00_000,
        'lakhs'     => 1_00_000,
@@ -68,21 +68,28 @@ def get_word(number)
     'ninety'    =>  (number - (number % 10)) == 90
   }
 
-  ap h
+  # ap h
   
   h.key(true)
 end
 
-
-def get_full_word(number)
-  word = []
+def get_full_word(number,word=[])
+  return nil if number <= 0
+  
   if number >= 100
-    
+    w = get_word(number)
+    get_full_word(number / ARR[w],word)
+    #puts w
+    word << w
+    number = number - (number / ARR[w] * ARR[w])
+    get_full_word(number,word)
   else
     w = get_word(number)
+    #puts w
     word << w
     number -= ARR[w]
+    get_full_word(number,word)
   end
 
-  word.join(' ')
+  word.compact.join(' ')
 end
