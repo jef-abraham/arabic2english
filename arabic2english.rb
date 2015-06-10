@@ -93,3 +93,5 @@ def get_full_word(number,word=[])
 
   word.compact.join(' ')
 end
+
+puts get_full_word(ARGV[0].to_i)
